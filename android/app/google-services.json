@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "880569799001",
+    "firebase_url": "https://minor-556f9-default-rtdb.firebaseio.com",
+    "project_id": "minor-556f9",
+    "storage_bucket": "minor-556f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880569799001:android:6498eda6c84a54598a7c48",
+        "android_client_info": {
+          "package_name": "com.example.final_minor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANdusUHf8XbbNOWZrOE2hUYaxuRhJQteE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880569799001:android:1644d4c0272ea73d8a7c48",
+        "android_client_info": {
+          "package_name": "com.example.hostelhive_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANdusUHf8XbbNOWZrOE2hUYaxuRhJQteE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

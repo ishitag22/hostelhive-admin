@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-//import 'ThemeModal.dart';
+import 'ThemeModal.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -74,7 +74,7 @@ class _SettingsState extends State<Settings> {
   }
 
   Widget buildDarkModeSwitchRow(String text, bool value) {
-   // return Consumer(builder: (context, ThemeModal themeNotifier, child) {
+    return Consumer(builder: (context, ThemeModal themeNotifier, child) {
       return Card(
         margin: EdgeInsets.symmetric(vertical: 8.0),
         borderOnForeground: true,
@@ -91,28 +91,28 @@ class _SettingsState extends State<Settings> {
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                       fontSize: 17)),
-              // Switch(
-              //   //value: themeNotifier.isDark ? true: false,
-              //   overlayColor: overlayColor,
-              //   trackColor: trackColor,
-              //   thumbColor: MaterialStateProperty.all(Colors.black),
-              //   onChanged: (bool newValue) {
-              //     themeNotifier.isDark
-              //         ? themeNotifier.isDark= false
-              //         : themeNotifier.isDark= true;
-              //     setState(() {
-              //       if (text == "Dark Mode") {
-              //         dark = newValue;
-              //       }
-              //     });
-               // },
-             // ),
+              Switch(
+                value: themeNotifier.isDark ? true: false,
+                overlayColor: overlayColor,
+                trackColor: trackColor,
+                thumbColor: MaterialStateProperty.all(Colors.black),
+                onChanged: (bool newValue) {
+                  themeNotifier.isDark
+                      ? themeNotifier.isDark= false
+                      : themeNotifier.isDark= true;
+                  setState(() {
+                    if (text == "Dark Mode") {
+                      dark = newValue;
+                    }
+                  });
+                },
+              ),
             ],
           ),
         ),
       );
     }
-    //);
+    );
   }
 
   Widget buildPushNotificationsSwitchRow(String text, bool value) {
@@ -134,22 +134,22 @@ class _SettingsState extends State<Settings> {
                     color: Colors.black,
                     fontSize: 17)
             ),
-            // Switch(
-            //   value: value,
-            //   overlayColor: overlayColor,
-            //   trackColor: trackColor,
-            //   thumbColor: MaterialStateProperty.all(Colors.black),
-            //   onChanged: (bool newValue) {
-            //     setState(() {
-            //       if (text == "Push Notifications") {
-            //         noti = newValue;
-            //       }
-            //     });
-              //},
-            //),
+            Switch(
+              value: value,
+              overlayColor: overlayColor,
+              trackColor: trackColor,
+              thumbColor: MaterialStateProperty.all(Colors.black),
+              onChanged: (bool newValue) {
+                setState(() {
+                  if (text == "Push Notifications") {
+                    noti = newValue;
+                  }
+                });
+              },
+            ),
           ],
         ),
       ),
     );
   }
-//}
+}

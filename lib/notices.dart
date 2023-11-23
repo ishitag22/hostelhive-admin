@@ -53,8 +53,16 @@ class _noticesState extends State<notices> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notices", style: TextStyle(color: Colors.black),),
+        elevation: 0,
+        title: Text(getCurrentDate(), style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.amberAccent,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.dehaze_outlined),
+          color: Colors.black,
+          onPressed: (){Scaffold.of(context).openDrawer();},
+          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        ),
       ),
       body: GridView.builder(
         itemCount: 2,
@@ -72,11 +80,7 @@ class _noticesState extends State<notices> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset(
-                         "asset/images/Adobe PDF.png",
-                         height: 120,
-                         width: 100,
-                      ),
+                     const Image(width:100, height:120, image: AssetImage('asset/images/abode.png',)),
                       Text(
                         "Notice",
                         style: TextStyle(
@@ -93,7 +97,7 @@ class _noticesState extends State<notices> {
       floatingActionButton: Padding( padding: EdgeInsets.only(bottom: 16.0),
       child: FloatingActionButton(
         backgroundColor: Colors.amber,
-        child: Icon(Icons.upload_file,),
+        child: Icon(Icons.upload_file, color: Colors.black,),
         onPressed: pickFile,
       ),
       ),

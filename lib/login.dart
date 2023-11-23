@@ -3,7 +3,6 @@ import 'package:hostelhive_admin/Register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Header.dart';
-import 'Register.dart';
 import 'navbar.dart';
 
 class LoginPage extends StatefulWidget {

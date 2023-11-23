@@ -14,6 +14,7 @@ class _ComplaintsState extends State<Complaints> {
       appBar: AppBar(
         backgroundColor: Colors.amberAccent,
         title: Text('Complaints', style: TextStyle(color: Colors.black),),
+        elevation: 0,
       ),
     );
   }

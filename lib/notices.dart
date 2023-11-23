@@ -53,7 +53,8 @@ class _noticesState extends State<notices> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notices"),
+        title: Text("Notices", style: TextStyle(color: Colors.black),),
+        backgroundColor: Colors.amberAccent,
       ),
       body: GridView.builder(
         itemCount: 2,
@@ -89,9 +90,12 @@ class _noticesState extends State<notices> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.upload_file),
+      floatingActionButton: Padding( padding: EdgeInsets.only(bottom: 16.0),
+      child: FloatingActionButton(
+        backgroundColor: Colors.amber,
+        child: Icon(Icons.upload_file,),
         onPressed: pickFile,
+      ),
       ),
     );
   }

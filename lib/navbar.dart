@@ -1,7 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:hostelhive_admin/notices.dart';
-//import 'package:final_minor/complaints.dart';
-//import 'package:final_minor/notice.dart';
+import 'package:hostelhive_admin/complaints.dart';
 //import 'package:final_minor/settings_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +15,7 @@ class _NavBarState extends State<NavBar> {
   int _index =0;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
-  var screens =[ notices()
-    //notice(),Complaints(),SettingsPage(),
+  var screens =[ notices(),Complaints(),//SettingsPage(),
   ];
   @override
   Widget build(BuildContext context) {

@@ -44,7 +44,7 @@ class _NoticesState extends State<Notices> {
         ),
       ),
       body: GridView.builder(
-       // itemCount: 3,
+        itemCount: 4,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),

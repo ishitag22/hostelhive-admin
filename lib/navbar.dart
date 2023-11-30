@@ -3,6 +3,7 @@ import 'package:hostelhive_admin/notices.dart';
 import 'package:hostelhive_admin/complaints.dart';
 //import 'package:final_minor/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hostelhive_admin/settings.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -15,7 +16,7 @@ class _NavBarState extends State<NavBar> {
   int _index =0;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
-  var screens =[ notices(),Complaints(),//SettingsPage(),
+  var screens =[ Notices(),Complaints(),//SettingsPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _NavBarState extends State<NavBar> {
           items: <Widget>[
             Icon((_index==0) ? Icons.tips_and_updates_outlined: Icons.tips_and_updates, size: 30, color: Colors.black,),
             Icon((_index==1) ? Icons.rate_review_outlined : Icons.rate_review, size: 30, color: Colors.black,),
-            Icon((_index==2) ? Icons.settings_outlined : Icons.settings, size: 30, color: Colors.black,),
+           // Icon((_index==2) ? Icons.settings_outlined : Icons.settings, size: 30, color: Colors.black,),
           ],
           index: _index,
           onTap: (selectedIndex) {

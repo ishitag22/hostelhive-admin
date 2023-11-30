@@ -11,7 +11,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool showPassword = false;
+  bool showPassword = true;
   bool confirmPassword = false;
   bool stayLoggedIn = false;
 

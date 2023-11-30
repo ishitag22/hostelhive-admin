@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  switcher_button: ^0.0.4
   flutter:
     sdk: flutter
 
@@ -53,6 +54,11 @@ dependencies:
   fluttertoast: ^8.0.2
   curved_navigation_bar: ^1.0.3
   intl: ^0.18.1
+  advance_pdf_viewer: ^2.0.0
+  cached_network_image: ^3.1.0
+  image_picker: ^0.8.3
+
+
 
 dev_dependencies:
   flutter_test:

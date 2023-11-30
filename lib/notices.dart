@@ -1,19 +1,28 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
-class notices extends StatefulWidget {
-  const notices({Key? key}) : super(key: key);
+class Notices extends StatefulWidget {
+  const Notices({Key? key}) : super(key: key);
 
   @override
-  State<notices> createState() => _noticesState();
+  State<Notices> createState() => _NoticesState();
 }
 
-class _noticesState extends State<notices> {
+class _NoticesState extends State<Notices> {
+  File? image;
+
+  String getCurrentDate() {
+    final now = DateTime.now();
+    final formattedDate = DateFormat('d MMMM').format(now);
+    return formattedDate;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +44,7 @@ class _noticesState extends State<notices> {
         ),
       ),
       body: GridView.builder(
-        itemCount: 2,
+       // itemCount: 3,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),
@@ -51,7 +60,13 @@ class _noticesState extends State<notices> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Image(
+                    image != null
+                        ? Image.file(
+                      image!,
+                      width: 100,
+                      height: 120,
+                    )
+                        : const Image(
                       width: 100,
                       height: 120,
                       image: AssetImage('asset/images/abode.png'),
@@ -71,64 +86,73 @@ class _noticesState extends State<notices> {
       ),
       floatingActionButton: Padding(
         padding: EdgeInsets.only(bottom: 16.0),
-        child: FloatingActionButton(
-          backgroundColor: Colors.amber,
-          child: Icon(Icons.upload_file, color: Colors.black),
-          onPressed: pickFileAndUpload,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              backgroundColor: Colors.amber,
+              child: Icon(Icons.camera, color: Colors.black),
+              onPressed: pickImage,
+            ),
+            SizedBox(height: 16),
+            FloatingActionButton(
+              backgroundColor: Colors.amber,
+              child: Icon(Icons.upload_file, color: Colors.black),
+              onPressed: pickFileAndUpload,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  void pickFileAndUpload() async {
+  Future<void> pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<void> pickFileAndUpload() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf'],
+      allowedExtensions: ['jpg', 'jpeg', 'png','pdf'],
     );
 
     if (result != null) {
       File file = File(result.files.single.path!);
-      uploadPdf(file);
+      uploadFile(file);
       Fluttertoast.showToast(
-          msg: "Uploaded successfully",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
+        msg: "Uploaded successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.amberAccent,
+        textColor: Colors.white,
+        fontSize: 16.0,
       );
-
     } else {
       print("File picking canceled.");
     }
   }
 
-  Future<void> uploadPdf(File file) async {
+  Future<void> uploadFile(File file) async {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
     Reference storageReference =
-    FirebaseStorage.instance.ref().child('pdfs/$fileName.pdf');
-
+    FirebaseStorage.instance.ref().child('pdfs/$fileName.jpg');
     UploadTask uploadTask = storageReference.putFile(file);
 
     await uploadTask.whenComplete(() async {
-      // Get the download URL for the uploaded file
       String downloadURL = await storageReference.getDownloadURL();
-
-      // Add the file details to Firestore (replace 'pdfs' with your collection name)
       await FirebaseFirestore.instance.collection('pdfs').add({
         'name': fileName,
         'link': downloadURL,
         'timestamp': FieldValue.serverTimestamp(),
       });
-
-      print('PDF uploaded successfully.');
     });
-  }
-
-  String getCurrentDate() {
-    final now = DateTime.now();
-    final formattedDate = DateFormat('d MMMM').format(now);
-    return formattedDate;
   }
 }

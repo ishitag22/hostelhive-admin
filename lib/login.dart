@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool showPassword = false;
+  bool showPassword = true;
   bool stayLoggedIn = false;
   void _toggle(){
     setState(() {

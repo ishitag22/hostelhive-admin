@@ -29,7 +29,7 @@ class ComplaintsList extends StatelessWidget {
       stream: FirebaseFirestore.instance.collection('complaints').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator(backgroundColor: Colors.amberAccent,),);
         }
 
         if (snapshot.hasError) {

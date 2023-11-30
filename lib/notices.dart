@@ -91,12 +91,14 @@ class _NoticesState extends State<Notices> {
           children: [
             FloatingActionButton(
               backgroundColor: Colors.amber,
+              elevation: 0,
               child: Icon(Icons.camera, color: Colors.black),
               onPressed: pickImage,
             ),
             SizedBox(height: 16),
             FloatingActionButton(
               backgroundColor: Colors.amber,
+              elevation: 0,
               child: Icon(Icons.upload_file, color: Colors.black),
               onPressed: pickFileAndUpload,
             ),

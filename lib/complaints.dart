@@ -23,13 +23,17 @@ class _ComplaintsState extends State<Complaints> {
 }
 
 class ComplaintsList extends StatelessWidget {
+  void _deleteComplaint(String docId) {
+    FirebaseFirestore.instance.collection('complaints').doc(docId).delete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('complaints').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator(backgroundColor: Colors.amberAccent,),);
+          return Center(child: CircularProgressIndicator(backgroundColor: Colors.amberAccent,));
         }
 
         if (snapshot.hasError) {
@@ -42,7 +46,7 @@ class ComplaintsList extends StatelessWidget {
 
         // Extract complaint data from the snapshot
         List<Complaint> complaints = snapshot.data!.docs.map((doc) {
-          return Complaint.fromMap(doc.data() as Map<String, dynamic>);
+          return Complaint.fromMap(doc.id, doc.data() as Map<String, dynamic>);
         }).toList();
 
         return ListView.builder(
@@ -53,6 +57,12 @@ class ComplaintsList extends StatelessWidget {
               subtitle: Text('Bed: ${complaints[index].bed}\n'
                   'Category: ${complaints[index].category ?? 'Uncategorized'}\n'
                   'Description: ${complaints[index].description ?? 'No description'}'),
+              trailing: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () {
+                  _deleteComplaint(complaints[index].docId);
+                },
+              ),
             );
           },
         );
@@ -60,18 +70,20 @@ class ComplaintsList extends StatelessWidget {
     );
   }
 }
+
 class Complaint {
+  final String docId;
   final String? hostel;
   final int? room;
   final int? bed;
   final String? description;
   final String? category;
 
-  Complaint({this.hostel, this.room, this.bed, this.description, this.category});
+  Complaint({required this.docId, this.hostel, this.room, this.bed, this.description, this.category});
 
-
-  factory Complaint.fromMap(Map<String, dynamic> map) {
+  factory Complaint.fromMap(String docId, Map<String, dynamic> map) {
     return Complaint(
+      docId: docId,
       hostel: map['hostel'],
       room: map['room'],
       bed: map['bed'],
@@ -80,4 +92,3 @@ class Complaint {
     );
   }
 }
-
